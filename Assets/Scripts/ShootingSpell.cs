@@ -20,14 +20,21 @@ public class ShootingSpell : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        ChangingSpell changingSpell = gameObject.GetComponent<ChangingSpell>();
-        bullet = changingSpell.bullet;
+        //ChangingSpell changingSpell = gameObject.GetComponent<ChangingSpell>();
+        //bullet = changingSpell.bullet;
         timer += Time.deltaTime;
         x = Input.GetAxis("Horizontal");
         y = Input.GetAxis("Vertical");
 
+        if(Input.GetKey(KeyCode.Space))
+        {
+            spriteRend.sprite = sprites[0];
+            
+        }
+        
         if(x > 0)
         {
+            Debug.Log("D key pressed");
             spriteRend.sprite = sprites[0];
             shootingAim.transform.position = new Vector3(1f, 0, 0);
         }
@@ -47,14 +54,14 @@ public class ShootingSpell : MonoBehaviour
             shootingAim.transform.position = new Vector3(0, 1f, 0);
         }
 
-        Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
+        /*Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
 
         if(Input.GetMouseButtonDown(0) && timer >= cd)
         {
             Instantiate(bullet, shootingAim.transform.position, Quaternion.identity);
 
             timer = 0;
-        }
+        }*/
 
     }
 }
