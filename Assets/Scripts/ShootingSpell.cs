@@ -4,13 +4,11 @@ using UnityEngine;
 
 public class ShootingSpell : MonoBehaviour
 {
+    public Animator anim;
     public GameObject shootingAim, bullet;
-    public SpriteRenderer spriteRend;
-    public Sprite[] sprites;
     public float cd;
     public float speed;
     float timer;
-    float x, y;
     // Start is called before the first frame update
     void Start()
     {
@@ -20,48 +18,52 @@ public class ShootingSpell : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //ChangingSpell changingSpell = gameObject.GetComponent<ChangingSpell>();
-        //bullet = changingSpell.bullet;
+        ChangingSpell changingSpell = gameObject.GetComponent<ChangingSpell>();
+        bullet = changingSpell.bullet;
         timer += Time.deltaTime;
-        x = Input.GetAxis("Horizontal");
-        y = Input.GetAxis("Vertical");
-
-        if(Input.GetKey(KeyCode.Space))
-        {
-            spriteRend.sprite = sprites[0];
-            
-        }
         
-        if(x > 0)
+        if(Input.GetKeyDown(KeyCode.S))
         {
-            Debug.Log("D key pressed");
-            spriteRend.sprite = sprites[0];
-            shootingAim.transform.position = new Vector3(1f, 0, 0);
-        }
-        else if(x < 0)
-        {
-            spriteRend.sprite = sprites[1];
-            shootingAim.transform.position = new Vector3(-1f, 0, 0);
-        }
-        else if(y < 0)
-        {
-            spriteRend.sprite = sprites[2];
+            anim.SetBool("IsFacingDown", true);
+            anim.SetBool("IsFacingUp", false);
+            anim.SetBool("IsFacingRight", false);
+            anim.SetBool("IsFacingLeft", false);
             shootingAim.transform.position = new Vector3(0, -1f, 0);
         }
-        else if(y > 0)
+        else if(Input.GetKeyDown(KeyCode.W))
         {
-            spriteRend.sprite = sprites[3];
+            anim.SetBool("IsFacingDown", false);
+            anim.SetBool("IsFacingUp", true);
+            anim.SetBool("IsFacingRight", false);
+            anim.SetBool("IsFacingLeft", false);
             shootingAim.transform.position = new Vector3(0, 1f, 0);
         }
+        else if(Input.GetKeyDown(KeyCode.D))
+        {
+            Debug.Log("D key pressed");
+            anim.SetBool("IsFacingDown", false);
+            anim.SetBool("IsFacingUp", false);
+            anim.SetBool("IsFacingRight", true);
+            anim.SetBool("IsFacingLeft", false);
+            shootingAim.transform.position = new Vector3(1f, 0, 0);
+        }
+        else if(Input.GetKeyDown(KeyCode.A))
+        {
+            anim.SetBool("IsFacingDown", false);
+            anim.SetBool("IsFacingUp", false);
+            anim.SetBool("IsFacingRight", false);
+            anim.SetBool("IsFacingLeft", true);
+            shootingAim.transform.position = new Vector3(-1f, 0, 0);
+        }
 
-        /*Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
+        Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
 
         if(Input.GetMouseButtonDown(0) && timer >= cd)
         {
             Instantiate(bullet, shootingAim.transform.position, Quaternion.identity);
 
             timer = 0;
-        }*/
+        }
 
     }
 }
