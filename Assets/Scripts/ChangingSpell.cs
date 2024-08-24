@@ -30,7 +30,7 @@ public class ChangingSpell : MonoBehaviour
                 index = 0;
             }
 
-            bullet = spellBullets[index];;
+            bullet = spellBullets[index];
         }
     }
 }
