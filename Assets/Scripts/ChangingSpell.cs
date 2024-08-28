@@ -5,6 +5,8 @@ using UnityEngine;
 public class ChangingSpell : MonoBehaviour
 {
     public Animator playerAnim;
+    public GameObject spellLogo;
+    public Sprite[] spellLogoSprites;
 
     public GameObject[] spellBullets;
     public GameObject bullet;
@@ -22,6 +24,7 @@ public class ChangingSpell : MonoBehaviour
         if(Input.GetMouseButtonDown(1))
         {
             playerAnim.SetTrigger("PlayerChangingSpell");
+            StartCoroutine(ChangingSpellLogo());
 
             index++;
 
@@ -32,5 +35,16 @@ public class ChangingSpell : MonoBehaviour
 
             bullet = spellBullets[index];
         }
+    }
+
+    IEnumerator ChangingSpellLogo()
+    {
+        SpriteRenderer logoRenderer = spellLogo.GetComponent<SpriteRenderer>();
+        logoRenderer.sprite = spellLogoSprites[index];
+        spellLogo.SetActive(true);
+
+        yield return new WaitForSeconds(0.5f);
+
+        spellLogo.SetActive(false);
     }
 }

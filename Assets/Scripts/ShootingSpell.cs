@@ -13,6 +13,11 @@ public class ShootingSpell : MonoBehaviour
     void Start()
     {
         timer = cd;
+
+        anim.SetBool("IsFacingDown", true);
+        anim.SetBool("IsFacingUp", false);
+        anim.SetBool("IsFacingRight", false);
+        anim.SetBool("IsFacingLeft", false);
     }
 
     // Update is called once per frame

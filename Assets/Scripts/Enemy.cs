@@ -6,17 +6,19 @@ public class Enemy : MonoBehaviour
 {
     Rigidbody2D rb;
     public float speed;
+    public GameObject restartPanel;
 
     public Transform player;
     void Start()
     {
+        restartPanel.SetActive(false);
         rb = gameObject.GetComponent<Rigidbody2D>();
     }
 
     // Update is called once per frame
     void Update()
     {
-         Vector3 direction = transform.position - player.position;
+        Vector3 direction = transform.position - player.position;
 
         if (direction.x > 0 && Mathf.Abs(direction.x) > Mathf.Abs(direction.y))
         {
@@ -34,6 +36,16 @@ public class Enemy : MonoBehaviour
         else if (direction.y < 0 && Mathf.Abs(direction.y) > Mathf.Abs(direction.x))
         {
             rb.velocity = transform.up * speed;
+        }
+    }
+
+    void OnTriggerEnter2D(Collider2D collider)
+    {
+        if(collider.CompareTag("Player"))
+        {
+            Time.timeScale = 0;
+            restartPanel.SetActive(true);
+
         }
     }
 
